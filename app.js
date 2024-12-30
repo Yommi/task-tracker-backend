@@ -1,6 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-// const cors = require('cors');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const adminRouter = require('./routes/adminRoutes');
 const authRouter = require('./routes/authRoutes');
@@ -18,12 +18,24 @@ if (process.env.NODE_ENV === 'development') {
 // BODY PARSER
 app.use(express.json());
 
-// app.use(
-//   cors({
-//     origin: 'http://localhost:3000',
-//     credentials: true,
-//   }),
-// );
+const allowedOrigins = [
+  'https://private-repo-frontend.vercel.app/',  // Your deployed frontend URL
+  'http://localhost:3000',                     // Local development URL
+]
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 
