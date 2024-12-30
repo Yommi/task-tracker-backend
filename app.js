@@ -18,24 +18,12 @@ if (process.env.NODE_ENV === 'development') {
 // BODY PARSER
 app.use(express.json());
 
-const allowedOrigins = [
-  'https://private-repo-frontend.vercel.app/' 
-  // 'http://localhost:3000',                     
-]
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: 'https://private-repo-frontend.vercel.app',
+    credentials: true,
+  }),
+);
 
 app.use(cookieParser());
 
