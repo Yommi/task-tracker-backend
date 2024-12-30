@@ -19,8 +19,8 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 
 const allowedOrigins = [
-  'https://private-repo-frontend.vercel.app/',  // Your deployed frontend URL
-  'http://localhost:3000',                     // Local development URL
+  'https://private-repo-frontend.vercel.app/' 
+  // 'http://localhost:3000',                     
 ]
 
 const corsOptions = {
