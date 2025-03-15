@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: 'https://private-repo-frontend.vercel.app',
+    origin: 'https://task-tracker-frontend-t4cg.onrender.com',
     credentials: true,
   }),
 );
